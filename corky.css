@@ -1,0 +1,98 @@
+@font-face {
+    font-family: "Comfortaa";
+    font-weight: 300;
+    src: url(fonts/Comfortaa-Light.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Comfortaa";
+    font-weight: 400;
+    src: url(fonts/Comfortaa-Regular.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Comfortaa";
+    font-weight: 700;
+    src: url(fonts/Comfortaa-Bold.ttf) format("truetype");
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Comfortaa";
+    position: relative;
+}
+
+#container {
+    background-color: #B56F44;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#container #notes {
+    background-color: rgba(0, 0, 0, 0.25);
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+#container #notes p {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    cursor: default;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: inline-block;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 2em;
+}
+
+#container #notes .note {
+    font-family: sans-serif;
+    background-color: #C2A229;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
+    padding: 25px;
+    font-size: 1.3em;
+    overflow: auto;
+}
+
+#container #notes .note .close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#container #notes .note .editor {
+    outline: none;
+}
+
+#container #credits {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+#toolbar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border-radius: 40px;
+    padding: 20px 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1.5em;
+    user-select: none;
+    cursor: default;
+}

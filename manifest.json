@@ -1,0 +1,14 @@
+{
+    "manifest_version": 2,
+    "name": "Corky",
+    "version": "0.1",
+
+    "description": "Friendly new tab corkboard.",
+    "icons": {
+        "192": "pushpin.png"
+    },
+
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    }
+}
