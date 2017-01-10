@@ -114,6 +114,13 @@ var Note = function (point, id) {
             var editor = document.createElement("div");
             editor.classList = "editor";
             editor.contentEditable = true;
+            editor.onkeyup = function (event) {
+                if (event.keyCode == 27) {
+                    if (editor.innerHTML.trim() == "") {
+                        note.destroy(true);
+                    }
+                }
+            };
             el.appendChild(editor);
 
             note.setContent = function (content) {
