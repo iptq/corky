@@ -65,22 +65,32 @@ var update_time = function () {
 // ===============
 // create new note
 
+var Storage = function () { };
+
+Storage.get = function () {
+    return localStorage.getItem("notes");
+};
+
+Storage.set = function (data) {
+    return localStorage.setItem("notes", data);
+};
+
 var Note = function (point, id) {
     var note = this;
     this.save = function (content) {
-        var notes = JSON.parse(localStorage.getItem("notes")) || {};
+        var notes = JSON.parse(Storage.get()) || {};
         var element = this.element();
         notes[note.id] = {
             "content": content,
             "x": (1.0 * parseInt(element.style.left) + DEFAULT_WIDTH / 2) / window.innerWidth,
             "y": (1.0 * parseInt(element.style.top) + DEFAULT_HEIGHT / 2) / window.innerHeight
         };
-        localStorage.setItem("notes", JSON.stringify(notes));
+        Storage.set(JSON.stringify(notes));
     };
     this.destroy = function (removeElement) {
-        var notes = JSON.parse(localStorage.getItem("notes")) || {};
+        var notes = JSON.parse(Storage.get()) || {};
         if (note.id in notes) delete notes[note.id];
-        localStorage.setItem("notes", JSON.stringify(notes));
+        Storage.set(JSON.stringify(notes));
         if (removeElement)
             document.getElementById("notes").removeChild(this.element());
     };
@@ -163,7 +173,7 @@ var Note = function (point, id) {
 };
 
 Note.get = function (id) {
-    var notes = JSON.parse(localStorage.getItem("notes")) || {};
+    var notes = JSON.parse(Storage.get()) || {};
     if (id in notes) {
         return notes[id];
     } else {
@@ -212,13 +222,13 @@ var drag = function (event) {
                 document.getElementById(el.id).style.top = (top + dy) + "px";
                 el.dragpoint = { x: event.clientX, y: event.clientY };
 
-                var notes = JSON.parse(localStorage.getItem("notes")) || {};
+                var notes = JSON.parse(Storage.get()) || {};
                 var id = el.id.replace("note-", "");
                 if (id in notes) {
                     notes[id].x = 1.0 * (parseInt(document.getElementById(el.id).style.left) + DEFAULT_WIDTH / 2) / window.innerWidth;
                     notes[id].y = 1.0 * (parseInt(document.getElementById(el.id).style.top) + DEFAULT_HEIGHT / 2) / window.innerHeight;
                 }
-                localStorage.setItem("notes", JSON.stringify(notes));
+                Storage.set(JSON.stringify(notes));
                 break;
             }
         }
@@ -226,7 +236,7 @@ var drag = function (event) {
 };
 
 var load = function () {
-    var notes = JSON.parse(localStorage.getItem("notes"));
+    var notes = JSON.parse(Storage.get());
     for (var id in notes) {
         var note = Note.load(id, notes[id]);
     }
@@ -234,10 +244,10 @@ var load = function () {
 
 var init = function () {
     try {
-        JSON.parse(localStorage.getItem("notes"));
+        JSON.parse(Storage.get());
     } catch (e) {
         console.log("Local storage corrupted, resetting...");
-        localStorage.setItem("notes", JSON.stringify({}));
+        Storage.set(JSON.stringify({}));
     }
     requestAnimationFrame(update_time);
     document.getElementById("notes").onclick = create;

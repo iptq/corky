@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Corky",
-    "version": "0.2",
+    "version": "1.0",
 
     "description": "Friendly new tab corkboard.",
     "icons": {
